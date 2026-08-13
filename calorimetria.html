@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorimetría · Lectura desde cero</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e6e9ef;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+        }
+
+        .paper {
+            max-width: 1100px;
+            width: 100%;
+            background: #ffffff;
+            padding: 50px 60px 60px 60px;
+            border-radius: 12px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+            border: 1px solid #d0d4dd;
+            line-height: 1.7;
+            color: #1e1e2a;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #1a3b5c;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #0b1e33;
+            border-bottom: 4px solid #c44536;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-top: 35px;
+            margin-bottom: 12px;
+            color: #1a3b5c;
+            border-left: 6px solid #c44536;
+            padding-left: 16px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 22px;
+            margin-bottom: 6px;
+            color: #1f4a6e;
+        }
+
+        p {
+            margin-bottom: 14px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin: 10px 0 16px 30px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        .highlight-box {
+            background: #fdf5f0;
+            border-left: 8px solid #c44536;
+            padding: 18px 24px;
+            margin: 22px 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+        }
+
+        .highlight-box strong {
+            font-style: normal;
+            color: #8b2f1e;
+        }
+
+        .formula {
+            background: #f7f9fc;
+            padding: 14px 22px;
+            margin: 16px 0;
+            border-radius: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.15rem;
+            text-align: center;
+            border: 1px solid #dce2ec;
+            color: #0a2647;
+        }
+
+        .formula-inline {
+            background: #f2f5fa;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            border: 1px solid #d0d9e6;
+        }
+
+        .figura {
+            background: #f7faff;
+            border: 2px solid #dce4f0;
+            border-radius: 16px;
+            padding: 25px 20px 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .figura svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .figura .caption {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #3d5e7a;
+            font-style: italic;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin: 28px 0 16px 0;
+            border-radius: 10px;
+            border: 1px solid #ccd5e3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: #1f3b57;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 14px 16px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #dfe5ef;
+            vertical-align: top;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-highlight {
+            background: #fdf5f0;
+        }
+
+        .nutrition-box {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+
+        .nutrition-box h3 {
+            color: #2e7d32;
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+        }
+
+        .experiment-box {
+            background: #e3f2fd;
+            border: 2px solid #1e88e5;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+
+        .experiment-box h3 {
+            color: #0d47a1;
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+        }
+
+        .footnote {
+            margin-top: 30px;
+            padding-top: 18px;
+            border-top: 2px dashed #bac8db;
+            font-size: 0.95rem;
+            color: #2e405b;
+        }
+
+        @media print {
+            body {
+                background: #ffffff;
+                padding: 0.2in;
+            }
+            .paper {
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                padding: 0.2in 0.4in;
+                max-width: 100%;
+            }
+            .figura {
+                background: #f4f7fd;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .highlight-box {
+                background: #fdf5f0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .nutrition-box {
+                background: #e8f5e9;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .experiment-box {
+                background: #e3f2fd;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .formula {
+                background: #f5f8fc;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            th {
+                background: #1f3b57 !important;
+                color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .table-highlight {
+                background: #fdf5f0 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            h2, h3 {
+                page-break-after: avoid;
+            }
+            .table-wrap {
+                page-break-inside: avoid;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .paper {
+                padding: 25px 20px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            h2 {
+                font-size: 1.3rem;
+            }
+            .formula {
+                font-size: 1rem;
+                padding: 12px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="paper">
+
+    <a href="index.html" class="back-link">← Volver al índice</a>
+
+    <h1>🔥 Calorimetría: Fundamentos y Aplicaciones</h1>
+
+    <!-- ===== SECCIÓN 1: INTRODUCCIÓN ===== -->
+    <h2>1. ¿Qué es la Calorimetría?</h2>
+    <p>La <strong>calorimetría</strong> es la rama de la física que estudia y mide la cantidad de <strong>calor</strong> involucrado en procesos físicos, químicos o biológicos. El calor, como recordarás, es <strong>energía en tránsito</strong> que fluye de un cuerpo de mayor temperatura a otro de menor temperatura.</p>
+
+    <p>Para entender la calorimetría, primero debemos comprender qué es el <strong>calor</strong> y cómo se diferencia de la <strong>temperatura</strong>:</p>
+
+    <ul>
+        <li><strong>Temperatura:</strong> Es una medida de la <em>energía cinética promedio</em> de las partículas de un sistema.</li>
+        <li><strong>Calor:</strong> Es la <em>energía transferida</em> entre sistemas debido a una diferencia de temperatura.</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong>💡 Idea clave:</strong> Un objeto puede estar a alta temperatura pero tener poca energía térmica (como una aguja caliente), y otro puede estar a baja temperatura pero tener mucha energía térmica (como un iceberg). El calor es la energía que se transfiere entre ellos.
+    </div>
+
+    <!-- FIGURA 1: Diferencia entre calor y temperatura -->
+    <div class="figura">
+        <svg viewBox="0 0 500 160" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="500" height="160" fill="#f7faff" rx="12"/>
+
+            <!-- Aguja caliente -->
+            <rect x="60" y="50" width="100" height="20" rx="4" fill="#b0b8c5"/>
+            <polygon points="60,60 30,45 30,75" fill="#b0b8c5"/>
+            <text x="80" y="90" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#1a3b5c">Aguja caliente</text>
+            <text x="80" y="105" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#c44536">T = 200 °C</text>
+            <text x="80" y="120" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#5d738b">Q = pequeña</text>
+
+            <!-- Iceberg -->
+            <rect x="320" y="30" width="130" height="70" rx="6" fill="#a8d0e6" stroke="#6b9bbf" stroke-width="2"/>
+            <polygon points="320,30 360,10 400,30" fill="#a8d0e6" stroke="#6b9bbf" stroke-width="1.5"/>
+            <text x="385" y="115" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#1a3b5c">Iceberg</text>
+            <text x="385" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#4a90d9">T = -10 °C</text>
+            <text x="385" y="145" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#5d738b">Q = enorme</text>
+
+            <text x="250" y="18" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#0b1e33">Temperatura ≠ Calor</text>
+        </svg>
+        <div class="caption">Figura 1: Una aguja a 200 °C tiene alta temperatura pero poca energía térmica. Un iceberg a -10 °C tiene baja temperatura pero enorme cantidad de energía térmica.</div>
+    </div>
+
+    <!-- ===== SECCIÓN 2: UNIDADES ===== -->
+    <h2>2. Unidades de Calor: Joule y Caloría</h2>
+
+    <h3>Joule (J)</h3>
+    <p>El <strong>Joule</strong> es la unidad de energía en el Sistema Internacional (SI). Se define como el trabajo realizado al aplicar una fuerza de 1 newton a lo largo de 1 metro. En el contexto térmico, 1 joule es la cantidad de calor necesaria para elevar la temperatura de aproximadamente 0.24 gramos de agua en 1 °C.</p>
+
+    <h3>Caloría (cal)</h3>
+    <p>La <strong>caloría</strong> es una unidad histórica que aún se utiliza ampliamente, especialmente en nutrición. Se define como la cantidad de calor necesaria para elevar la temperatura de <strong>1 gramo de agua</strong> en <strong>1 °C</strong> (de 14.5 °C a 15.5 °C, a 1 atm de presión).</p>
+
+    <div class="formula">
+        1 cal = 4.184 J &nbsp;&nbsp;(equivalencia exacta)
+    </div>
+
+    <div class="highlight-box">
+        <strong>📜 Nota histórica:</strong> La caloría fue introducida por el químico francés Nicolas Clément en 1824. Aunque el SI utiliza el joule, la caloría sigue vigente en la industria alimentaria y en algunos campos de la química.
+    </div>
+
+    <!-- ===== SECCIÓN 3: CAPACIDAD CALORÍFICA ===== -->
+    <h2>3. Capacidad Calorífica y Calor Específico</h2>
+
+    <h3>Capacidad Calorífica (C)</h3>
+    <p>Es la cantidad de calor (<em>Q</em>) que se debe suministrar a un <strong>objeto completo</strong> (sin importar su masa o composición) para elevar su temperatura en 1 grado (1 °C o 1 K).</p>
+    <div class="formula">
+        C = Q / ΔT
+    </div>
+    <p>Unidades en el SI: <span class="formula-inline">Joule por kelvin (J/K)</span>.</p>
+
+    <h3>Calor Específico (c)</h3>
+    <p>Es una <strong>propiedad característica e intensiva</strong> de cada material. Se define como la cantidad de calor necesaria para elevar la temperatura de <strong>1 kilogramo</strong> de esa sustancia en 1 grado (1 K o 1 °C).</p>
+    <div class="formula">
+        c = Q / (m · ΔT)
+    </div>
+    <p>Unidades en el SI: <span class="formula-inline">J/(kg·K)</span>.</p>
+
+    <h3>Ecuación Fundamental de la Calorimetría</h3>
+    <div class="formula">
+        Q = m · c · ΔT
+    </div>
+    <p>Donde:</p>
+    <ul>
+        <li><strong>Q</strong> = calor transferido (J)</li>
+        <li><strong>m</strong> = masa (kg)</li>
+        <li><strong>c</strong> = calor específico (J/kg·K)</li>
+        <li><strong>ΔT</strong> = cambio de temperatura (K o °C)</li>
+    </ul>
+
+    <!-- TABLA de calores específicos -->
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sustancia</th>
+                    <th>c (J/kg·K)</th>
+                    <th>c (cal/g·°C)</th>
+                    <th>Interpretación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Agua</strong></td>
+                    <td>4180</td>
+                    <td>1.00</td>
+                    <td>Muy alto → regula el clima</td>
+                </tr>
+                <tr class="table-highlight">
+                    <td><strong>Hielo</strong></td>
+                    <td>2100</td>
+                    <td>0.50</td>
+                    <td>Menor que el agua líquida</td>
+                </tr>
+                <tr>
+                    <td><strong>Hierro</strong></td>
+                    <td>450</td>
+                    <td>0.107</td>
+                    <td>Bajo → se calienta rápido</td>
+                </tr>
+                <tr class="table-highlight">
+                    <td><strong>Cobre</strong></td>
+                    <td>385</td>
+                    <td>0.092</td>
+                    <td>Bajo → buen conductor</td>
+                </tr>
+                <tr>
+                    <td><strong>Aluminio</strong></td>
+                    <td>900</td>
+                    <td>0.215</td>
+                    <td>Medio</td>
+                </tr>
+                <tr class="table-highlight">
+                    <td><strong>Aire</strong></td>
+                    <td>1005</td>
+                    <td>0.240</td>
+                    <td>Bajo → se calienta fácilmente</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="highlight-box">
+        <strong>🌊 El agua tiene un calor específico excepcionalmente alto:</strong> Necesita absorber mucha energía para elevar su temperatura, y cede mucha energía al enfriarse. Por eso los océanos actúan como reguladores térmicos del planeta.
+    </div>
+
+    <!-- ===== SECCIÓN 4: CALORIMETRÍA EN NUTRICIÓN ===== -->
+    <h2>4. Calorimetría en Nutrición</h2>
+
+    <div class="nutrition-box">
+        <h3>🍎 Calorías Alimentarias (kcal)</h3>
+        <p>En nutrición, cuando hablamos de "calorías" en los alimentos, en realidad nos referimos a <strong>kilocalorías (kcal)</strong>. Una kilocaloría equivale a 1000 calorías (cal) o 4.184 kJ.</p>
+        <p><strong>Ejemplo:</strong> Una manzana mediana tiene aproximadamente 95 kcal = 95,000 cal = 397 kJ.</p>
+    </div>
+
+    <h3>¿Cómo se obtiene la cantidad de calorías de un alimento?</h3>
+    <p>El contenido energético de los alimentos se determina mediante un método llamado <strong>calorimetría directa</strong>, que mide el calor liberado cuando el alimento se <strong>quema completamente</strong> en presencia de oxígeno. Esta combustión es equivalente, en términos energéticos, al proceso metabólico que ocurre en nuestro cuerpo.</p>
+
+    <h3>Factores de conversión de macronutrientes</h3>
+    <p>Los macronutrientes aportan diferentes cantidades de energía por gramo:</p>
+    <ul>
+        <li><strong>Carbohidratos:</strong> 4 kcal/g</li>
+        <li><strong>Proteínas:</strong> 4 kcal/g</li>
+        <li><strong>Grasas:</strong> 9 kcal/g</li>
+        <li><strong>Alcohol:</strong> 7 kcal/g</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong>🧪 Método de Atwater:</strong> Este sistema, desarrollado por el químico Wilbur Olin Atwater a finales del siglo XIX, utiliza factores de conversión para estimar el contenido calórico de los alimentos a partir de su composición en carbohidratos, proteínas y grasas. Es el método estándar en las tablas de composición de alimentos.
+    </div>
+
+    <!-- FIGURA 2: Equivalencia calórica de una manzana -->
+    <div class="figura">
+        <svg viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="500" height="150" fill="#f7faff" rx="12"/>
+
+            <!-- Manzana -->
+            <circle cx="80" cy="55" r="25" fill="#e53935" opacity="0.8"/>
+            <rect x="75" y="28" width="10" height="15" rx="3" fill="#4caf50"/>
+            <text x="80" y="100" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#1a3b5c">95 kcal</text>
+
+            <!-- Flecha -->
+            <line x1="115" y1="60" x2="180" y2="60" stroke="#1a3b5c" stroke-width="2" stroke-dasharray="4,4"/>
+            <polygon points="180,55 190,60 180,65" fill="#1a3b5c"/>
+
+            <!-- Equivalencias -->
+            <text x="235" y="50" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#0b1e33">= 397 kJ</text>
+            <text x="235" y="70" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#5d738b">= 95,000 cal</text>
+
+            <!-- Actividad física -->
+            <line x1="300" y1="60" x2="365" y2="60" stroke="#1a3b5c" stroke-width="2" stroke-dasharray="4,4"/>
+            <polygon points="365,55 375,60 365,65" fill="#1a3b5c"/>
+
+            <text x="420" y="45" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#1a3b5c">⏱️ 20 min</text>
+            <text x="420" y="62" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#1a3b5c">caminata</text>
+            <text x="420" y="79" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#5d738b">≈ 3 km</text>
+
+            <text x="250" y="135" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#5d738b">Equivalencias energéticas de una manzana</text>
+        </svg>
+        <div class="caption">Figura 2: Una manzana de 95 kcal equivale a 397 kJ, y su energía equivale a caminar unos 20 minutos.</div>
+    </div>
+
+    <!-- ===== SECCIÓN 5: EL ENSAYO CALORIMÉTRICO ===== -->
+    <h2>5. El Ensayo Calorimétrico</h2>
+
+    <div class="experiment-box">
+        <h3>🧪 ¿Cómo se mide el calor de un alimento?</h3>
+        <p>El método clásico para determinar el contenido calórico de un alimento se realiza con un <strong>calorímetro de bomba</strong> (también llamado <strong>calorímetro de combustión</strong>). El procedimiento es el siguiente:</p>
+        <ol>
+            <li>Se coloca una muestra seca y pulverizada del alimento en una cápsula dentro de la bomba.</li>
+            <li>La bomba se llena con oxígeno puro a alta presión (≈ 20-30 atm).</li>
+            <li>La bomba se sumerge en un recipiente con una cantidad conocida de agua.</li>
+            <li>Se enciende la muestra mediante una chispa eléctrica.</li>
+            <li>La muestra se quema completamente, liberando calor.</li>
+            <li>El calor liberado eleva la temperatura del agua circundante.</li>
+            <li>Midiendo el aumento de temperatura, se calcula el calor liberado.</li>
+        </ol>
+    </div>
+
+    <h3>Calorímetro de Bomba (Calorímetro de Combustión)</h3>
+    <p>Es el instrumento más preciso para medir el poder calórico de alimentos, combustibles y otros materiales. Consiste en:</p>
+    <ul>
+        <li><strong>Bomba de combustión:</strong> Recipiente de acero inoxidable que contiene la muestra y oxígeno a presión.</li>
+        <li><strong>Recipiente con agua:</strong> Aislamiento térmico que contiene una cantidad conocida de agua.</li>
+        <li><strong>Termómetro de precisión:</strong> Mide el cambio de temperatura del agua.</li>
+        <li><strong>Agitador:</strong> Asegura una temperatura uniforme en el agua.</li>
+        <li><strong>Encendido eléctrico:</strong> Inicia la combustión de la muestra.</li>
+    </ul>
+
+    <!-- FIGURA 3: Calorímetro de bomba -->
+    <div class="figura">
+        <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="500" height="220" fill="#f7faff" rx="12"/>
+
+            <!-- Recipiente exterior (aislante) -->
+            <rect x="70" y="20" width="360" height="170" rx="12" fill="#e8edf5" stroke="#1a3b5c" stroke-width="2"/>
+            <text x="250" y="15" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#1a3b5c">Recipiente aislante</text>
+
+            <!-- Agua -->
+            <rect x="100" y="60" width="300" height="110" rx="6" fill="#4a90d9" opacity="0.3"/>
+            <text x="250" y="145" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#1a3b5c">Agua</text>
+
+            <!-- Bomba de combustión -->
+            <rect x="200" y="80" width="100" height="60" rx="8" fill="#b0b8c5" stroke="#1a3b5c" stroke-width="2"/>
+            <text x="250" y="105" text-anchor="middle" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#1a3b5c">Bomba</text>
+            <text x="250" y="120" text-anchor="middle" font-family="Georgia, serif" font-size="9" fill="#1a3b5c">Muestra</text>
+            <text x="250" y="132" text-anchor="middle" font-family="Georgia, serif" font-size="8" fill="#5d738b">O₂ a presión</text>
+
+            <!-- Termómetro -->
+            <rect x="140" y="25" width="8" height="40" rx="4" fill="#e8edf5" stroke="#1a3b5c" stroke-width="1.5"/>
+            <circle cx="144" cy="22" r="5" fill="#c44536" opacity="0.6"/>
+            <text x="144" y="12" text-anchor="middle" font-family="Georgia, serif" font-size="8" fill="#1a3b5c">T</text>
+
+            <!-- Agitador -->
+            <line x1="340" y1="30" x2="340" y2="150" stroke="#1a3b5c" stroke-width="2"/>
+            <rect x="335" y="148" width="10" height="6" rx="2" fill="#1a3b5c"/>
+
+            <!-- Cable de ignición -->
+            <line x1="200" y1="70" x2="230" y2="70" stroke="#c44536" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="180" y="68" text-anchor="end" font-family="Georgia, serif" font-size="8" fill="#c44536">Ignición</text>
+
+            <!-- Etiquetas -->
+            <text x="250" y="200" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#1a3b5c">Calorímetro de Bomba (Combustión)</text>
+
+            <!-- Líneas de flecha -->
+            <line x1="250" y1="210" x2="250" y2="195" stroke="#c44536" stroke-width="1.5"/>
+            <polygon points="247,197 250,205 253,197" fill="#c44536"/>
+        </svg>
+        <div class="caption">Figura 3: Esquema de un calorímetro de bomba. La muestra se quema dentro de la bomba con oxígeno a presión, y el calor liberado calienta el agua circundante.</div>
+    </div>
+
+    <!-- ===== SECCIÓN 6: TIPOS DE CALORÍMETROS ===== -->
+    <h2>6. Tipos de Calorímetros y sus Aplicaciones</h2>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo de Calorímetro</th>
+                    <th>Principio de Funcionamiento</th>
+                    <th>Aplicaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Calorímetro de Bomba</strong></td>
+                    <td>Combustión de muestra en O₂ a presión</td>
+                    <td>Alimentos, combustibles, materiales</td>
+                </tr>
+                <tr class="table-highlight">
+                    <td><strong>Calorímetro Diferencial de Barrido (DSC)</strong></td>
+                    <td>Mide flujo de calor entre muestra y referencia</td>
+                    <td>Polímeros, fármacos, transiciones de fase</td>
+                </tr>
+                <tr>
+                    <td><strong>Calorímetro de Mezcla</strong></td>
+                    <td>Mezcla de sustancias a diferentes T</td>
+                    <td>Laboratorios educativos</td>
+                </tr>
+                <tr class="table-highlight">
+                    <td><strong>Calorímetro de Flujo</strong></td>
+                    <td>Mide calor en sistemas en flujo continuo</td>
+                    <td>Procesos industriales, química</td>
+                </tr>
+                <tr>
+                    <td><strong>Calorímetro de Adsorción</strong></td>
+                    <td>Mide calor de adsorción de gases</td>
+                    <td>Catalizadores, materiales porosos</td>
+                </tr>
+                <tr class="table-highlight">
+                    <td><strong>Microcalorímetro</strong></td>
+                    <td>Mide cantidades muy pequeñas de calor</td>
+                    <td>Biología molecular, enzimas</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Calorímetro Diferencial de Barrido (DSC)</h3>
+    <p>El DSC es una técnica muy utilizada en química y ciencia de materiales. Mide la diferencia de calor necesaria para aumentar la temperatura de una muestra y una referencia al mismo ritmo. Permite detectar transiciones de fase, reacciones químicas y cambios estructurales.</p>
+
+    <div class="highlight-box">
+        <strong>🔬 Aplicación del DSC:</strong> Se usa para determinar la temperatura de fusión de polímeros, la desnaturalización de proteínas, la cristalización de metales y la estabilidad de fármacos.
+    </div>
+
+    <!-- ===== SECCIÓN 7: PRINCIPIO DE CONSERVACIÓN ===== -->
+    <h2>7. Principio de Conservación de la Energía en Calorimetría</h2>
+    <p>La base de todos los cálculos calorimétricos es el <strong>principio de conservación de la energía</strong>: en un sistema aislado, el calor cedido por un cuerpo es igual al calor absorbido por otro.</p>
+
+    <div class="formula">
+        Q<sub>cedido</sub> + Q<sub>absorbido</sub> = 0
+    </div>
+
+    <p>En el caso del calorímetro de bomba, el calor liberado por la combustión del alimento (Q<sub>combustión</sub>) es igual al calor absorbido por el agua y el calorímetro (Q<sub>absorvido</sub>).</p>
+
+    <div class="formula">
+        Q<sub>combustión</sub> = m<sub>agua</sub> · c<sub>agua</sub> · ΔT + C<sub>calorímetro</sub> · ΔT
+    </div>
+
+    <p>Donde <strong>C<sub>calorímetro</sub></strong> es la capacidad calorífica del calorímetro (incluyendo la bomba, el agua y el recipiente).</p>
+
+    <!-- ===== SECCIÓN 8: APLICACIONES ===== -->
+    <h2>8. Aplicaciones de la Calorimetría</h2>
+
+    <ul>
+        <li><strong>Industria alimentaria:</strong> Determinación del valor energético de alimentos y bebidas.</li>
+        <li><strong>Farmacéutica:</strong> Estudio de estabilidad de medicamentos y formulaciones.</li>
+        <li><strong>Metalurgia:</strong> Medición de calores específicos de aleaciones y metales.</li>
+        <li><strong>Medio ambiente:</strong> Análisis de combustibles y biocombustibles.</li>
+        <li><strong>Biología:</strong> Estudio de procesos metabólicos y actividad enzimática.</li>
+        <li><strong>Ingeniería química:</strong> Diseño de reactores y procesos industriales.</li>
+        <li><strong>Deporte y nutrición:</strong> Elaboración de dietas y planes de entrenamiento.</li>
+    </ul>
+
+    <!-- ===== TABLA RESUMEN ===== -->
+    <h2>9. Resumen de Conceptos Clave</h2>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Definición</th>
+                    <th>Unidad (SI)</th>
+                    <th>Fórmula</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Calor (Q)</strong></td>
+                    <td>Energía en tránsito por diferencia de T</td>
+                    <td>Joule (J)</td>
+                    <td>—</td>
+                </tr>
+                <tr class="table-highlight">
+                    <td><strong>Caloría (cal)</strong></td>
+                    <td>Calor para elevar 1 g de agua 1 °C</td>
+                    <td>cal (1 cal = 4.184 J)</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><strong>Capacidad Calorífica (C)</strong></td>
+                    <td>Calor para elevar objeto 1 K</td>
+                    <td>J/K</td>
+                    <td>C = Q/ΔT</td>
+                </tr>
+                <tr class="table-highlight">
+                    <td><strong>Calor Específico (c)</strong></td>
+                    <td>Calor para elevar 1 kg 1 K</td>
+                    <td>J/(kg·K)</td>
+                    <td>Q = m·c·ΔT</td>
+                </tr>
+                <tr>
+                    <td><strong>Calorímetro de Bomba</strong></td>
+                    <td>Instrumento para medir calor de combustión</td>
+                    <td>—</td>
+                    <td>Q = m·c·ΔT + C<sub>cal</sub>·ΔT</td>
+                </tr>
+                <tr class="table-highlight">
+                    <td><strong>kcal (Caloría alimentaria)</strong></td>
+                    <td>1000 cal = 4.184 kJ</td>
+                    <td>kcal</td>
+                    <td>1 kcal = 1000 cal</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ===== REFLEXIÓN FINAL ===== -->
+    <div class="footnote">
+        <h3 style="margin-top:0; border-left:none; padding-left:0; color:#1f3b57;">🧠 Reflexión final</h3>
+        <p>La calorimetría es una herramienta fundamental para entender cómo la energía térmica fluye y se transforma. Desde los experimentos clásicos con calorímetros de bomba hasta las sofisticadas técnicas modernas como el DSC, la medición del calor nos permite cuantificar el contenido energético de los alimentos, diseñar nuevos materiales y comprender los procesos biológicos. La próxima vez que mires la etiqueta nutricional de un alimento, recuerda que esas calorías fueron medidas mediante el mismo principio físico que estudiamos hoy: la conservación de la energía.</p>
+        <p style="text-align:right; color:#3d5e7a; font-size:0.9rem; margin-top:10px;">— Material didáctico para estudio y consulta —</p>
+    </div>
+
+</div>
+
+</body>
+</html>
