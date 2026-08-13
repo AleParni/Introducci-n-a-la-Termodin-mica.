@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lectura Teórica: Termometría y Calorimetría</title>
+    <style>
+        /* ---- ESTILOS GENERALES ---- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e6e9ef;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+        }
+
+        /* ---- CONTENEDOR PRINCIPAL (estilo hoja) ---- */
+        .paper {
+            max-width: 1100px;
+            width: 100%;
+            background: #ffffff;
+            padding: 50px 60px 60px 60px;
+            border-radius: 12px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+            border: 1px solid #d0d4dd;
+            line-height: 1.7;
+            color: #1e1e2a;
+        }
+
+        /* ---- TIPOGRAFÍA Y ESPACIADO ---- */
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #0b1e33;
+            border-bottom: 4px solid #2a5c8a;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            color: #1a3b5c;
+            border-left: 6px solid #2a5c8a;
+            padding-left: 16px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 22px;
+            margin-bottom: 6px;
+            color: #1f4a6e;
+        }
+
+        p {
+            margin-bottom: 14px;
+            text-align: justify;
+        }
+
+        /* ---- LISTAS ---- */
+        ul, ol {
+            margin: 10px 0 16px 30px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        /* ---- CUADROS DE DESTAQUE ---- */
+        .highlight-box {
+            background: #f0f4fb;
+            border-left: 8px solid #1f6390;
+            padding: 18px 24px;
+            margin: 22px 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+        }
+
+        .highlight-box strong {
+            font-style: normal;
+            color: #003366;
+        }
+
+        /* ---- FÓRMULAS Y ECUACIONES ---- */
+        .formula {
+            background: #f7f9fc;
+            padding: 14px 22px;
+            margin: 16px 0;
+            border-radius: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.15rem;
+            text-align: center;
+            border: 1px solid #dce2ec;
+            letter-spacing: 0.3px;
+            color: #0a2647;
+        }
+
+        .formula-inline {
+            background: #f2f5fa;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            border: 1px solid #d0d9e6;
+        }
+
+        /* ---- TABLA RESUMEN ---- */
+        .table-wrap {
+            overflow-x: auto;
+            margin: 28px 0 16px 0;
+            border-radius: 10px;
+            border: 1px solid #ccd5e3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: #1f3b57;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 14px 16px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #dfe5ef;
+            vertical-align: top;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-highlight {
+            background: #f6f9ff;
+        }
+
+        /* ---- NOTA AL PIE ---- */
+        .footnote {
+            margin-top: 30px;
+            padding-top: 18px;
+            border-top: 2px dashed #bac8db;
+            font-size: 0.95rem;
+            color: #2e405b;
+        }
+
+        /* ---- VERSIÓN IMPRESIÓN ---- */
+        @media print {
+            body {
+                background: #ffffff;
+                padding: 0.3in;
+                margin: 0;
+            }
+
+            .paper {
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                padding: 0.2in 0.4in;
+                max-width: 100%;
+            }
+
+            h1 {
+                border-bottom-width: 3px;
+            }
+
+            .highlight-box {
+                background: #f4f7fd;
+                border-left-width: 6px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .formula {
+                background: #f5f8fc;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                border: 1px solid #bcc6d6;
+            }
+
+            th {
+                background: #1f3b57 !important;
+                color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .table-highlight {
+                background: #f1f5fc !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            /* Evita saltos de página incómodos */
+            h2, h3 {
+                page-break-after: avoid;
+            }
+            .table-wrap {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* ---- RESPONSIVE (pantallas chicas) ---- */
+        @media (max-width: 650px) {
+            .paper {
+                padding: 25px 20px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            h2 {
+                font-size: 1.3rem;
+            }
+            .formula {
+                font-size: 1rem;
+                padding: 12px 10px;
+            }
+            ul, ol {
+                margin-left: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="paper">
+
+    <!-- ===== TÍTULO PRINCIPAL ===== -->
+    <h1>📐 Termometría y Calorimetría<br><span style="font-size:1.2rem; font-weight:400; color:#2f4f6e;">Fundamentos de medición y transferencia de energía térmica</span></h1>
+
+    <!-- ===== SECCIÓN 1 ===== -->
+    <h2>1. La Temperatura como Magnitud Fundamental</h2>
+    <p>La <strong>temperatura</strong> es una de las siete magnitudes fundamentales del Sistema Internacional (SI). Sin embargo, a diferencia de la longitud o la masa, la temperatura no es una propiedad intrínseca de un objeto, sino una <strong>medida de la energía cinética promedio de las partículas</strong> (átomos o moléculas) que lo componen. Cuanto más rápido se mueven estas partículas, mayor es la temperatura del sistema.</p>
+    <p>Para cuantificar esta sensación o estado térmico, necesitamos instrumentos y escalas estandarizadas.</p>
+
+    <!-- ===== SECCIÓN 2 ===== -->
+    <h2>2. Termómetros y Principio de Funcionamiento</h2>
+    <p>Un <strong>termómetro</strong> es un dispositivo que mide la temperatura aprovechando el cambio de alguna propiedad física de un material que varía de manera reproducible con la temperatura (propiedad termométrica).</p>
+
+    <h3>Propiedades termométricas comunes:</h3>
+    <ul>
+        <li><strong>Dilatación de líquidos:</strong> (Ej. mercurio o alcohol coloreado en vidrio). El volumen del líquido aumenta linealmente con la temperatura.</li>
+        <li><strong>Resistencia eléctrica:</strong> (Termómetros de resistencia o RTD). La resistencia de un metal (como el platino) aumenta con la temperatura.</li>
+        <li><strong>Fuerza electromotriz:</strong> (Termopares). Dos metales distintos generan un voltaje que depende de la diferencia de temperatura entre sus uniones.</li>
+        <li><strong>Presión de un gas a volumen constante:</strong> (Termómetro de gas). La presión de un gas ideal es directamente proporcional a su temperatura absoluta.</li>
+    </ul>
+    <p>Para que un termómetro sea útil, debe ser <strong>calibrado</strong> utilizando <strong>puntos fijos</strong> de referencia, como el punto de fusión del hielo y el punto de ebullición del agua a presión atmosférica.</p>
+
+    <!-- ===== SECCIÓN 3 ===== -->
+    <h2>3. Escalas de Temperatura: Celsius y Kelvin</h2>
+
+    <h3>Escala Celsius (°C)</h3>
+    <p>Propuesta por Anders Celsius en 1742, es la escala más usada en la vida cotidiana y en la ciencia (excepto en EE.UU.).</p>
+    <ul>
+        <li><strong>Punto fijo inferior:</strong> 0 °C (fusión del hielo a 1 atm).</li>
+        <li><strong>Punto fijo superior:</strong> 100 °C (ebullición del agua a 1 atm).</li>
+        <li><strong>División:</strong> El intervalo entre ambos puntos se divide en 100 partes iguales, llamadas grados Celsius.</li>
+    </ul>
+
+    <h3>Escala Kelvin (K)</h3>
+    <p>Es la escala del Sistema Internacional (SI) y se llama <strong>escala absoluta</strong> porque su cero (0 K) corresponde al <strong>cero absoluto</strong>, el estado teórico donde las partículas tienen la mínima energía cinética posible (no existe movimiento térmico).</p>
+    <ul>
+        <li>No utiliza el símbolo de grado (°); se escribe simplemente <strong>K</strong>.</li>
+        <li>El tamaño de un kelvin es <strong>exactamente igual</strong> al de un grado Celsius.</li>
+    </ul>
+
+    <div class="formula">
+        T(K) = T(°C) + 273.15 &nbsp;&nbsp;(en ejercicios se usa 273)
+    </div>
+
+    <div class="highlight-box">
+        <strong>⚠️ Importante:</strong> En todas las fórmulas de la termodinámica que involucran temperatura (como la ley de los gases ideales <em>PV = nRT</em>), <strong>siempre se debe usar la escala Kelvin</strong>, ya que es la única que garantiza proporcionalidad directa con la energía.
+    </div>
+
+    <!-- ===== SECCIÓN 4 ===== -->
+    <h2>4. Medición de Temperatura y la Ley Cero de la Termodinámica</h2>
+    <p>Para medir la temperatura de un objeto, el termómetro debe estar en contacto físico con él hasta que ambos alcancen el mismo estado térmico. Esto se conoce como <strong>equilibrio térmico</strong>.</p>
+
+    <div class="highlight-box">
+        <strong>Ley Cero de la Termodinámica:</strong><br>
+        <em>“Si dos sistemas A y B están separadamente en equilibrio térmico con un tercer sistema C, entonces A y B están en equilibrio térmico entre sí.”</em>
+    </div>
+
+    <p><strong>Consecuencia de la Ley Cero:</strong> Esta ley es la base de la <strong>medición de temperatura</strong>. El termómetro actúa como el “sistema C”. Si el termómetro marca lo mismo al tocarlo con el objeto A que al tocarlo con el objeto B, podemos afirmar que A y B tienen la misma temperatura, aunque nunca hayan estado en contacto.</p>
+    <p><strong>Definición operativa de temperatura:</strong> La temperatura es la propiedad que determina si dos sistemas están en equilibrio térmico. Si al ponerlos en contacto, sus propiedades termométricas no cambian, tienen la misma temperatura.</p>
+
+    <!-- ===== SECCIÓN 5 ===== -->
+    <h2>5. Capacidad Calorífica y Calor Específico</h2>
+    <p>Hasta ahora hemos hablado de <em>cómo</em> medir la temperatura, pero no de <em>cuánta energía</em> se necesita para cambiar esa temperatura. Aquí entran los conceptos de capacidad calorífica y calor específico.</p>
+
+    <h3>Calor (Q)</h3>
+    <p>El <strong>calor</strong> es la <strong>energía en tránsito</strong> que fluye de un cuerpo de mayor temperatura a otro de menor temperatura debido únicamente a su diferencia de temperaturas. No se dice que un cuerpo “tenga calor”, sino que “transfiere calor”.</p>
+
+    <h3>Capacidad Calorífica (C)</h3>
+    <p>Es la cantidad de calor (<em>Q</em>) que se debe suministrar a un <strong>objeto completo</strong> (sin importar su masa o composición) para elevar su temperatura en 1 grado (1 °C o 1 K).</p>
+    <div class="formula">
+        C = Q / ΔT
+    </div>
+    <p>Unidades en el SI: <span class="formula-inline">Joule por kelvin (J/K)</span>.</p>
+
+    <h3>Calor Específico (c) o Calor Específico Másico</h3>
+    <p>Es una <strong>propiedad característica e intensiva</strong> de cada material. Se define como la cantidad de calor necesaria para elevar la temperatura de <strong>1 kilogramo (o 1 gramo)</strong> de esa sustancia en 1 grado (1 K o 1 °C).</p>
+    <div class="formula">
+        c = Q / (m · ΔT)
+    </div>
+    <p>Unidades en el SI: <span class="formula-inline">J/(kg·K)</span>. (En la práctica también se usa cal/g·°C).</p>
+
+    <h3>Fórmula fundamental de la calorimetría:</h3>
+    <div class="formula">
+        Q = m · c · ΔT
+    </div>
+
+    <h3>Interpretación física del calor específico:</h3>
+    <ul>
+        <li><strong>Agua (c ≈ 4180 J/kg·K):</strong> Tiene un calor específico muy alto. Necesita absorber mucha energía para elevar su temperatura, y cede mucha energía al enfriarse. Por eso los océanos regulan el clima.</li>
+        <li><strong>Metales (Ej. Hierro, c ≈ 450 J/kg·K):</strong> Tienen bajo calor específico, por lo que se calientan y enfrían rápidamente.</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong>Observación:</strong> Para gases, distinguimos entre calor específico a volumen constante (<em>c<sub>v</sub></em>) y a presión constante (<em>c<sub>p</sub></em>), ya que el calor suministrado se usa tanto para aumentar la temperatura como para realizar trabajo (expandirse). Para sólidos y líquidos, esta diferencia es despreciable.
+    </div>
+
+    <!-- ===== SECCIÓN 6: TABLA RESUMEN ===== -->
+    <h2>6. Resumen y Relaciones Clave</h2>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Definición</th>
+                    <th>Fórmula / Relación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Temperatura (T)</strong></td>
+                    <td>Medida de la energía cinética promedio de las partículas.</td>
+                    <td><span class="formula-inline">T(K) = T(°C) + 273.15</span></td>
+                </tr>
+                <tr class="table-highlight">
+                    <td><strong>Ley Cero</strong></td>
+                    <td>Define el equilibrio térmico y permite medir T.</td>
+                    <td><span class="formula-inline">Si A=C y B=C ⇒ A=B</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Calor (Q)</strong></td>
+                    <td>Energía transferida debido a diferencia de T.</td>
+                    <td>Fluye de <em>T<sub>alta</sub></em> a <em>T<sub>baja</sub></em></td>
+                </tr>
+                <tr class="table-highlight">
+                    <td><strong>Capacidad Calorífica (C)</strong></td>
+                    <td>Calor para cambiar la T de <em>todo un objeto</em> en 1 K.</td>
+                    <td><span class="formula-inline">C = Q / ΔT</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Calor Específico (c)</strong></td>
+                    <td>Calor para cambiar la T de <em>1 kg de material</em> en 1 K.</td>
+                    <td><span class="formula-inline">Q = m · c · ΔT</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ===== REFLEXIÓN FINAL ===== -->
+    <div class="footnote">
+        <h3 style="margin-top:0; border-left:none; padding-left:0; color:#1f3b57;">🧠 Reflexión final</h3>
+        <p>Entender la diferencia entre <strong>temperatura</strong> (estado energético) y <strong>calor</strong> (energía en tránsito) es el primer gran paso en termodinámica. La temperatura se mide con termómetros gracias a la Ley Cero, mientras que el calor intercambiado depende de la masa y del tipo de material, cuantificado por su <strong>calor específico</strong>. Juntos, estos conceptos son la base para estudiar cómo la energía fluye y transforma la materia.</p>
+        <p style="text-align:right; color:#3d5e7a; font-size:0.9rem; margin-top:10px;">— Material didáctico para estudio y consulta —</p>
+    </div>
+
+</div>
+<!-- fin .paper -->
+
+</body>
+</html>
